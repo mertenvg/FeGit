@@ -1,0 +1,26 @@
+{
+    "name": "jdolieslager/fegit",
+    "description": "Execute git commando's via FeSshConnect",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Jesper Dolieslager",
+            "email": "jesper@flyingeagle.nl"
+        }
+    ],
+    "keywords": [
+        "git",
+        "ssh2",
+        "php",
+        "flyingeagle"
+    ],
+    "minimum-stability": "dev",
+    "autoload" : {
+        "psr-0" : {
+            "FeGit" : "src/FeGit"
+        }
+    },
+    "require": {
+        "jdolieslager/FeSshConnect" : "dev-master"
+    }
+}

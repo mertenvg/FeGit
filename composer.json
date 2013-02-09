@@ -21,6 +21,6 @@
         }
     },
     "require": {
-        "jdolieslager/FeSshConnect" : "dev-master"
+        "jdolieslager/fesshconnect" : "dev-master"
     }
 }

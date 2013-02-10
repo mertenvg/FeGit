@@ -74,6 +74,19 @@ class Plugin extends AbstractPlugin
     }
 
     /**
+     * Get the pull plugin
+     *
+     * @return Pull\Plugin
+     */
+    public function pull()
+    {
+        $plugin = new Pull\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
      * Get the remote plugin
      *
      * @return Remote\Plugin

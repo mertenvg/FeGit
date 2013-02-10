@@ -167,4 +167,23 @@ class Plugin extends AbstractPlugin
         $this->execute("cd {$gitDirectory}; git remote rename {$oldName} {$newName}");
         return true;
     }
+
+    /**
+     * Fetch updates from the remotes
+     *
+     * @param  string  $gitDirectory The directory that holds the .git folder
+     * @param  array   $remotes      Selection of remotes to update
+     * @return boolean               TRUE on success
+     */
+    public function update($gitDirectory, array $remotes = array())
+    {
+        $command = "cd {$gitDirectory}; git remote update";
+
+        if (empty($remotes) === false) {
+            $command .= " ".implode(' ', $remotes);
+        }
+
+        $this->execute($command);
+        return true;
+    }
 }

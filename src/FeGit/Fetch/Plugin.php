@@ -251,11 +251,7 @@ class Plugin extends AbstractPlugin
             $command .= "{$repository} {$refspec}";
         }
 
-        $result = $this->execute($command);
-        if ($dryRun === true) {
-            return $result;
-        }
-
+        $this->execute($command);
         return true;
     }
 }

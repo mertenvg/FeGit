@@ -32,3 +32,7 @@ $sshConnect->getPluginManager()->registerPlugin('git.fetch', 'FeGit\Fetch\Plugin
 $sshConnect->getPluginManager()->registerPlugin('git.remote', 'FeGit\Remote\Plugin');
 $sshConnect->getPluginManager()->registerPlugin('git.tag', 'FeGit\Tag\Plugin');
 ```
+
+## Todo's
+There is still plenty commands / modules of git to cover. Feel free to send in PR's
+

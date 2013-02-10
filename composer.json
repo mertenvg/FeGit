@@ -17,7 +17,7 @@
     "minimum-stability": "dev",
     "autoload" : {
         "psr-0" : {
-            "FeGit" : "src/FeGit"
+            "FeGit" : "src/"
         }
     },
     "require": {

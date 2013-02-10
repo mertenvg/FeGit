@@ -1,208 +1,101 @@
 <?php
 namespace FeGit;
 
-use FeSshConnect\Adapter\Adapter;
 use FeSshConnect\Exception;
-use FeSshConnect\Plugin\PluginInterface;
 
-class Plugin implements PluginInterface
+/**
+ * @author      J. Dolieslager
+ * @category    FeGit
+ */
+class Plugin extends AbstractPlugin
 {
     /**
-     * @var Adapter
+     * Get the branch plugin
+     *
+     * @return Branch\Plugin
      */
-    protected $adapter;
-
-    public function cloneRepo($targetDirectory, $url, $quiet = false)
+    public function branch()
     {
-        $workingDirectory = dirname($targetDirectory);
-        $folder           = basename($targetDirectory);
+        $plugin = new Branch\Plugin();
+        $plugin->setAdapter($this->getAdapter());
 
-        $command = "cd {$workingDirectory}; git clone ";
-        if ($quiet === true) {
-            $command .= "-q ";
-        }
-
-        $command .= "{$url} {$folder}";
-
-        return $this->execute($command);
-    }
-
-    public function checkout(
-        $gitDirectory,
-        $branch,
-        $createBranch      = false,
-        $quiet             = false,
-        $force             = false,
-        $mergeLocalChanges = false
-    ) {
-        $command = "cd {$gitDirectory}; git checkout ";
-
-        if ($quiet === true) {
-            $command .= "-q ";
-        }
-
-        if ($force === true) {
-            $command .= "-f ";
-        }
-
-        if ($mergeLocalChanges === true) {
-            $command .= "-m ";
-        }
-
-        $command .= "{$branch}";
-
-        return $this->execute($command);
-    }
-
-    public function pull(
-        $gitDirectory,
-        $refSpec,
-        $quiet      = false,
-        $noCommit   = false,
-        $rebase     = false,
-        $fetchAll   = false,
-        $force      = false
-    ) {
-        $command = "cd {$gitDirectory}; git pull ";
-
-        if ($quiet === true) {
-            $command .= "-q ";
-        }
-
-        if ($noCommit === true) {
-            $command .= "--no-commit ";
-        }
-
-        if ($rebase === true) {
-            $command .= "--rebase ";
-        }
-
-        if ($fetchAll === true) {
-            $command .= "--all ";
-        }
-
-        if ($force === true) {
-            $command .= "-f ";
-        }
-
-        $command .= $refSpec;
-
-        return $this->execute($command);
-    }
-
-    public function fetch(
-        $gitDirectory,
-        $refSpec,
-        $quiet      = false,
-        $dryRun     = false,
-        $fetchAll   = false,
-        $append     = false,
-        $force      = false,
-        $keep       = false,
-        $prune      = false,
-        $noTags     = false,
-        $allTags    = false
-    ) {
-        $command = "cd {$gitDirectory}; git fetch ";
-
-        if ($quiet === true) {
-            $command .= "-q ";
-        }
-
-        if ($dryRun === true) {
-            $command .= "--dry-run ";
-        }
-
-        if ($fetchAll === true) {
-            $command .= "--all ";
-        }
-
-        if ($append === true) {
-            $command .= "-a ";
-        }
-
-        if ($force === true) {
-            $command .= "-f ";
-        }
-
-        if ($keep === true) {
-            $command .= "-k ";
-        }
-
-        if ($prune === true) {
-            $command .= "-p ";
-        }
-
-        if ($noTags === true) {
-            $command .= "--no-tags ";
-        }
-
-        if ($allTags === true) {
-            $command .= "--tags ";
-        }
-
-        $command .= $refSpec;
-
-        return $this->execute($command);
-    }
-
-    public function merge(
-        $gitDirectory,
-        $refSpec,
-        $quiet      = false,
-        $noCommit   = false,
-        $abort      = false
-    ) {
-        $command = "cd {$gitDirectory}; git fetch ";
-
-        if ($quiet === true) {
-            $command .= "-q ";
-        }
-
-        if ($noCommit === true) {
-            $command .= "--no-commit ";
-        }
-
-        if ($abort === true) {
-            $command .= "--abort ";
-        }
-
-        $command .= $refSpec;
-
-        return $this->execute($command);
-    }
-
-
-    protected function execute($command)
-    {
-        $response = $this->getAdapter()->execute($command);
-        if ($response->hasErrors()) {
-            throw new Exception\RuntimeException($response->getErrorResponse());
-        }
-
-        return $response->getResponse();
+        return $plugin;
     }
 
     /**
-     * Set the adapter
+     * Get the Checkout plugin
      *
-     * @param Adapter $adapter
-     * @return Basic
+     * @return Checkout\Plugin
      */
-    public function setAdapter(Adapter $adapter)
-    {
-        $this->adapter = $adapter;
+    public function checkout() {
+        $plugin = new Checkout\Plugin();
+        $plugin->setAdapter($this->getAdapter());
 
-        return $this;
+        return $plugin;
     }
 
     /**
-     * Return the adapter
+     * Get the clone plugin
      *
-     * @return Adapter
+     * @return Cloning\Plugin
      */
-    public function getAdapter()
+    public function cloning()
     {
-        return $this->adapter;
+        $plugin = new Cloning\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
+     * Get the Config plugin
+     *
+     * @return Config\Plugin
+     */
+    public function config()
+    {
+        $plugin = new Config\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
+     * Get the fetch plugin
+     *
+     * @return Fetch\Plugin
+     */
+    public function fetch()
+    {
+        $plugin = new Fetch\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
+     * Get the remote plugin
+     *
+     * @return Remote\Plugin
+     */
+    public function remote()
+    {
+        $plugin = new Remote\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
+     * Get the Tag Plugin
+     *
+     * @return Tag\Plugin
+     */
+    public function tag()
+    {
+        $plugin = new Tag\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
     }
 }

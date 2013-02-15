@@ -53,11 +53,16 @@ class Plugin extends AbstractPlugin
         // Execute command
         $result  = trim($this->execute($command));
 
-        // Explode on EOL
-        $lines   = explode("\n", $result);
-
         // Create result object
         $entries = new Get\Entries();
+
+        // Return empty list when result string is empty
+        if (empty($result)) {
+            return $entries;
+        }
+
+        // Explode on EOL
+        $lines   = explode("\n", $result);
 
         foreach ($lines as $line) {
             // Create entry object

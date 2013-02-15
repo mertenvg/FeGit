@@ -9,5 +9,5 @@ namespace FeGit\Config\Get;
  *
  * @method Entry current
  */
-class Entries extends \ArrayObject
+class Entries extends \ArrayIterator
 {}

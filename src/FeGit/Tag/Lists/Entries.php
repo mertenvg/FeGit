@@ -9,5 +9,5 @@ namespace FeGit\Tag\Lists;
  *
  * @method Entry current
  */
-class Entries extends \ArrayObject
+class Entries extends \ArrayIterator
 {}

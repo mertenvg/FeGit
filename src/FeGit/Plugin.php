@@ -100,6 +100,19 @@ class Plugin extends AbstractPlugin
     }
 
     /**
+     * Get the reset plugin
+     *
+     * @return Reset\Plugin
+     */
+    public function reset()
+    {
+        $plugin = new Reset\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
      * Get the Tag Plugin
      *
      * @return Tag\Plugin

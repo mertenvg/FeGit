@@ -9,7 +9,7 @@ namespace FeGit\Branch\Lists;
  *
  * @method Entry current
  */
-class Entries extends \ArrayObject
+class Entries extends \ArrayIterator
 {
     /**
      * @var Entry

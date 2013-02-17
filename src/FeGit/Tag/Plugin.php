@@ -2,7 +2,6 @@
 namespace FeGit\Tag;
 
 use FeGit\AbstractPlugin;
-use FeSshConnect\Exception;
 
 /**
  * @author      J. Dolieslager
@@ -25,6 +24,11 @@ class Plugin extends AbstractPlugin
         $result  = trim($this->execute($command));
         $lines   = explode("\n", $result);
         $entries = new Lists\Entries();
+
+        // Return empty list on empty result
+        if (empty($result)) {
+            return $entries;
+        }
 
         foreach ($lines as $line) {
             // Create single entry

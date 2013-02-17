@@ -87,6 +87,19 @@ class Plugin extends AbstractPlugin
     }
 
     /**
+     * Get the push plugin
+     *
+     * @return Push\Plugin
+     */
+    public function push()
+    {
+        $plugin = new Push\Plugin();
+        $plugin->setAdapter($this->getAdapter());
+
+        return $plugin;
+    }
+
+    /**
      * Get the remote plugin
      *
      * @return Remote\Plugin

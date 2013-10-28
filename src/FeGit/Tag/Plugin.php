@@ -87,6 +87,7 @@ class Plugin extends AbstractPlugin
         $fromCommit  = null
     ) {
         $command = "cd {$gitDirectory}; git tag ";
+        $escaped = filter_var($message, FILTER_SANITIZE_MAGIC_QUOTES);
 
         if ($signed === true) {
             $command .= '-s ';
@@ -97,8 +98,8 @@ class Plugin extends AbstractPlugin
         if ($force === true) {
             $command .= '-f ';
         }
-
-        $command .= "-m {$message} {$tagname} {$fromCommit}";
+        
+        $command .= "-m '{$escaped}' {$tagname} {$fromCommit}";
 
         $this->execute($command);
 
